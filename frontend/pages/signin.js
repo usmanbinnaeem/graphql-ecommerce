@@ -1,3 +1,18 @@
-const signin = () => <div>sign in </div>;
+import styled from 'styled-components';
+import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
 
-export default signin;
+const GridStyles = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 2rem;
+`;
+
+const signinPage = () => (
+  <GridStyles>
+    <SignIn />
+    <SignUp />
+  </GridStyles>
+);
+
+export default signinPage;
