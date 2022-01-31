@@ -37,7 +37,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await signup().catch(error);
+    const res = await signup().catch(console.error);
     console.log(res);
     resetForm();
   };
@@ -85,7 +85,7 @@ const SignUp = () => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Sign In!</button>
+        <button type="submit">Sign Up!</button>
       </fieldset>
     </Form>
   );
