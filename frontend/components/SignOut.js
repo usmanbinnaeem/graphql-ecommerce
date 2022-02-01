@@ -16,11 +16,9 @@ const SignOut = () => {
     ],
   });
   return (
-    <div>
-      <button type="button" onClick={signout}>
-        Sign Out!
-      </button>
-    </div>
+    <button type="button" onClick={signout}>
+      Sign Out!
+    </button>
   );
 };
 
