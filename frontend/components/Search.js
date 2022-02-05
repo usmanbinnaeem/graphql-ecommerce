@@ -33,7 +33,7 @@ export default function Search() {
     fetchPolicy: 'no-cache',
   });
   const items = data?.searchTerms || [];
-  const findItemsButChill = debounce(findItems, 350);
+  const findItemsButChill = debounce(findItems, 1);
   resetIdCounter();
   const {
     isOpen,
