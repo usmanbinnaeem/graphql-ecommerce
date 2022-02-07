@@ -1,8 +1,10 @@
-import { useQuery } from '@apollo/client'
-import gql from 'graphql-tag'
-import OrderStyles from '../../components/styles/OrderStyles'
-import Head from 'next/head'
-import formatMoney from '../../lib/formatMoney'
+/* eslint-disable react/prop-types */
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
+import Head from 'next/head';
+import OrderStyles from '../../components/styles/OrderStyles';
+import ErrorMessage from '../../components/ErrorMessage';
+import formatMoney from '../../lib/formatMoney';
 
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
@@ -27,17 +29,17 @@ const SINGLE_ORDER_QUERY = gql`
       }
     }
   }
-`
+`;
 
 const OrderPage = ({ query }) => {
   const { data, error, loading } = useQuery(SINGLE_ORDER_QUERY, {
     variables: {
       id: query.id,
     },
-  })
-  if (error) return <ErrorMessage error={error} />
-  if (loading) return <p>Loading...</p>
-  const { order } = data
+  });
+  if (error) return <ErrorMessage error={error} />;
+  if (loading) return <p>Loading...</p>;
+  const { order } = data;
   return (
     <OrderStyles>
       <Head>
@@ -74,7 +76,7 @@ const OrderPage = ({ query }) => {
         ))}
       </div>
     </OrderStyles>
-  )
-}
+  );
+};
 
-export default OrderPage
+export default OrderPage;

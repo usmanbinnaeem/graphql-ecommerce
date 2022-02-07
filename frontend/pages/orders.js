@@ -38,9 +38,8 @@ const USER_ORDER_QUERY = gql`
   }
 `;
 
-const countItemsInAnOrder = (order) => {
-return  (order.items.reduce((tally, item) => tally + item.quantity, 0)
-)};
+const countItemsInAnOrder = (order) =>
+  order.items.reduce((tally, item) => tally + item.quantity, 0);
 
 const OrdersPage = () => {
   const { data, error, loading } = useQuery(USER_ORDER_QUERY);

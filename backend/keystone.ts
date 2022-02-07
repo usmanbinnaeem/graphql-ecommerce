@@ -8,8 +8,10 @@ import { ProductImage } from './schemas/ProductImage';
 import { CartItem } from './schemas/CartItem';
 import { OrderItem } from './schemas/OrderItem';
 import { Order } from './schemas/Order';
+import { Role } from './schemas/Role';
 import { extendGraphqlSchema } from './mutations/index';
 import { sendPasswordResetEmail } from './lib/mail';
+import { permissionsList } from './schemas/fields';
 
 const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost/keystone-sick-fits-tutorial';
 
@@ -57,6 +59,7 @@ export default withAuth(config({
         CartItem,
         OrderItem,
         Order,
+        Role,
     }),
     extendGraphqlSchema,
     ui: {
@@ -67,9 +70,8 @@ export default withAuth(config({
 
         },
     },
-
     session: withItemData(statelessSessions(sessionConfig), {
-        User: `id name email`
-    })
+        User: `id name email role { ${ permissionsList.join(' ')} }`,
+    }),
 }));
 
