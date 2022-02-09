@@ -28,6 +28,13 @@ export type RoleRelateToOneInput = {
   readonly disconnectAll?: Scalars['Boolean'] | null;
 };
 
+export type ProductRelateToManyInput = {
+  readonly create?: ReadonlyArray<ProductCreateInput | null> | null;
+  readonly connect?: ReadonlyArray<ProductWhereUniqueInput | null> | null;
+  readonly disconnect?: ReadonlyArray<ProductWhereUniqueInput | null> | null;
+  readonly disconnectAll?: Scalars['Boolean'] | null;
+};
+
 export type UserWhereInput = {
   readonly AND?: ReadonlyArray<UserWhereInput | null> | null;
   readonly OR?: ReadonlyArray<UserWhereInput | null> | null;
@@ -80,6 +87,9 @@ export type UserWhereInput = {
   readonly orders_none?: OrderWhereInput | null;
   readonly role?: RoleWhereInput | null;
   readonly role_is_null?: Scalars['Boolean'] | null;
+  readonly products_every?: ProductWhereInput | null;
+  readonly products_some?: ProductWhereInput | null;
+  readonly products_none?: ProductWhereInput | null;
   readonly passwordResetToken_is_set?: Scalars['Boolean'] | null;
   readonly passwordResetIssuedAt?: Scalars['String'] | null;
   readonly passwordResetIssuedAt_not?: Scalars['String'] | null;
@@ -149,6 +159,8 @@ export type SortUsersBy =
   | 'orders_DESC'
   | 'role_ASC'
   | 'role_DESC'
+  | 'products_ASC'
+  | 'products_DESC'
   | 'passwordResetIssuedAt_ASC'
   | 'passwordResetIssuedAt_DESC'
   | 'passwordResetRedeemedAt_ASC'
@@ -165,6 +177,7 @@ export type UserUpdateInput = {
   readonly cart?: CartItemRelateToManyInput | null;
   readonly orders?: OrderRelateToManyInput | null;
   readonly role?: RoleRelateToOneInput | null;
+  readonly products?: ProductRelateToManyInput | null;
   readonly passwordResetToken?: Scalars['String'] | null;
   readonly passwordResetIssuedAt?: Scalars['String'] | null;
   readonly passwordResetRedeemedAt?: Scalars['String'] | null;
@@ -185,6 +198,7 @@ export type UserCreateInput = {
   readonly cart?: CartItemRelateToManyInput | null;
   readonly orders?: OrderRelateToManyInput | null;
   readonly role?: RoleRelateToOneInput | null;
+  readonly products?: ProductRelateToManyInput | null;
   readonly passwordResetToken?: Scalars['String'] | null;
   readonly passwordResetIssuedAt?: Scalars['String'] | null;
   readonly passwordResetRedeemedAt?: Scalars['String'] | null;
@@ -201,6 +215,13 @@ export type ProductImageRelateToOneInput = {
   readonly create?: ProductImageCreateInput | null;
   readonly connect?: ProductImageWhereUniqueInput | null;
   readonly disconnect?: ProductImageWhereUniqueInput | null;
+  readonly disconnectAll?: Scalars['Boolean'] | null;
+};
+
+export type UserRelateToOneInput = {
+  readonly create?: UserCreateInput | null;
+  readonly connect?: UserWhereUniqueInput | null;
+  readonly disconnect?: UserWhereUniqueInput | null;
   readonly disconnectAll?: Scalars['Boolean'] | null;
 };
 
@@ -275,6 +296,8 @@ export type ProductWhereInput = {
   readonly price_gte?: Scalars['Int'] | null;
   readonly price_in?: ReadonlyArray<Scalars['Int'] | null> | null;
   readonly price_not_in?: ReadonlyArray<Scalars['Int'] | null> | null;
+  readonly user?: UserWhereInput | null;
+  readonly user_is_null?: Scalars['Boolean'] | null;
 };
 
 export type ProductWhereUniqueInput = {
@@ -293,7 +316,9 @@ export type SortProductsBy =
   | 'status_ASC'
   | 'status_DESC'
   | 'price_ASC'
-  | 'price_DESC';
+  | 'price_DESC'
+  | 'user_ASC'
+  | 'user_DESC';
 
 export type ProductUpdateInput = {
   readonly name?: Scalars['String'] | null;
@@ -301,6 +326,7 @@ export type ProductUpdateInput = {
   readonly image?: ProductImageRelateToOneInput | null;
   readonly status?: Scalars['String'] | null;
   readonly price?: Scalars['Int'] | null;
+  readonly user?: UserRelateToOneInput | null;
 };
 
 export type ProductsUpdateInput = {
@@ -314,6 +340,7 @@ export type ProductCreateInput = {
   readonly image?: ProductImageRelateToOneInput | null;
   readonly status?: Scalars['String'] | null;
   readonly price?: Scalars['Int'] | null;
+  readonly user?: UserRelateToOneInput | null;
 };
 
 export type ProductsCreateInput = {
@@ -425,13 +452,6 @@ export type ProductImagesCreateInput = {
   readonly data?: ProductImageCreateInput | null;
 };
 
-export type UserRelateToOneInput = {
-  readonly create?: UserCreateInput | null;
-  readonly connect?: UserWhereUniqueInput | null;
-  readonly disconnect?: UserWhereUniqueInput | null;
-  readonly disconnectAll?: Scalars['Boolean'] | null;
-};
-
 export type CartItemWhereInput = {
   readonly AND?: ReadonlyArray<CartItemWhereInput | null> | null;
   readonly OR?: ReadonlyArray<CartItemWhereInput | null> | null;
@@ -540,24 +560,6 @@ export type OrderItemWhereInput = {
   readonly description_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
   readonly image?: ProductImageWhereInput | null;
   readonly image_is_null?: Scalars['Boolean'] | null;
-  readonly status?: Scalars['String'] | null;
-  readonly status_not?: Scalars['String'] | null;
-  readonly status_contains?: Scalars['String'] | null;
-  readonly status_not_contains?: Scalars['String'] | null;
-  readonly status_starts_with?: Scalars['String'] | null;
-  readonly status_not_starts_with?: Scalars['String'] | null;
-  readonly status_ends_with?: Scalars['String'] | null;
-  readonly status_not_ends_with?: Scalars['String'] | null;
-  readonly status_i?: Scalars['String'] | null;
-  readonly status_not_i?: Scalars['String'] | null;
-  readonly status_contains_i?: Scalars['String'] | null;
-  readonly status_not_contains_i?: Scalars['String'] | null;
-  readonly status_starts_with_i?: Scalars['String'] | null;
-  readonly status_not_starts_with_i?: Scalars['String'] | null;
-  readonly status_ends_with_i?: Scalars['String'] | null;
-  readonly status_not_ends_with_i?: Scalars['String'] | null;
-  readonly status_in?: ReadonlyArray<Scalars['String'] | null> | null;
-  readonly status_not_in?: ReadonlyArray<Scalars['String'] | null> | null;
   readonly price?: Scalars['Int'] | null;
   readonly price_not?: Scalars['Int'] | null;
   readonly price_lt?: Scalars['Int'] | null;
@@ -591,8 +593,6 @@ export type SortOrderItemsBy =
   | 'description_DESC'
   | 'image_ASC'
   | 'image_DESC'
-  | 'status_ASC'
-  | 'status_DESC'
   | 'price_ASC'
   | 'price_DESC'
   | 'quantity_ASC'
@@ -604,7 +604,6 @@ export type OrderItemUpdateInput = {
   readonly name?: Scalars['String'] | null;
   readonly description?: Scalars['String'] | null;
   readonly image?: ProductImageRelateToOneInput | null;
-  readonly status?: Scalars['String'] | null;
   readonly price?: Scalars['Int'] | null;
   readonly quantity?: Scalars['Int'] | null;
   readonly order?: OrderRelateToOneInput | null;
@@ -619,7 +618,6 @@ export type OrderItemCreateInput = {
   readonly name?: Scalars['String'] | null;
   readonly description?: Scalars['String'] | null;
   readonly image?: ProductImageRelateToOneInput | null;
-  readonly status?: Scalars['String'] | null;
   readonly price?: Scalars['Int'] | null;
   readonly quantity?: Scalars['Int'] | null;
   readonly order?: OrderRelateToOneInput | null;
@@ -875,6 +873,7 @@ export type UserListTypeInfo = {
     | 'cart'
     | 'orders'
     | 'role'
+    | 'products'
     | 'passwordResetToken'
     | 'passwordResetIssuedAt'
     | 'passwordResetRedeemedAt'
@@ -889,6 +888,7 @@ export type UserListTypeInfo = {
     readonly cart?: string | null;
     readonly orders?: string | null;
     readonly role?: string | null;
+    readonly products?: string | null;
     readonly passwordResetToken?: string | null;
     readonly passwordResetIssuedAt?: Date | null;
     readonly passwordResetRedeemedAt?: Date | null;
@@ -923,7 +923,7 @@ export type UserListFn = (
 
 export type ProductListTypeInfo = {
   key: 'Product';
-  fields: 'id' | 'name' | 'description' | 'image' | 'status' | 'price';
+  fields: 'id' | 'name' | 'description' | 'image' | 'status' | 'price' | 'user';
   backing: {
     readonly id: string;
     readonly name?: string | null;
@@ -931,6 +931,7 @@ export type ProductListTypeInfo = {
     readonly image?: string | null;
     readonly status?: string | null;
     readonly price?: number | null;
+    readonly user?: string | null;
   };
   inputs: {
     where: ProductWhereInput;
@@ -1032,7 +1033,6 @@ export type OrderItemListTypeInfo = {
     | 'name'
     | 'description'
     | 'image'
-    | 'status'
     | 'price'
     | 'quantity'
     | 'order';
@@ -1041,7 +1041,6 @@ export type OrderItemListTypeInfo = {
     readonly name?: string | null;
     readonly description?: string | null;
     readonly image?: string | null;
-    readonly status?: string | null;
     readonly price?: number | null;
     readonly quantity?: number | null;
     readonly order?: string | null;

@@ -44,13 +44,6 @@ export default withAuth(config({
     db: {
         adapter: "mongoose",
         url: databaseUrl,
-        // async onConnect(keystone) {
-        //     console.log('connected to the database');
-        //     if (process.argv.includes('--seed-data')) {
-        //         await insertSeedData(keystone);
-        //     }
-
-        // }
     },
     lists: createSchema({
         User,
@@ -65,7 +58,6 @@ export default withAuth(config({
     ui: {
 
         isAccessAllowed: ({ session }) => {
-            // console.log(session);
             return !!session?.data;
 
         },
